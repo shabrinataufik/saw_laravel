@@ -17,4 +17,5 @@ Route::get('/', 'HomeController@index');
 Route::get('/about', 'HomeController@about');
 Route::get('/user', 'HomeController@user');
 Route::post('/users', 'UsersController@store');
-
+Route::get('/skor', 'HomeController@dataSkor');
+Route::post('/skor', 'DataSkorController@store');

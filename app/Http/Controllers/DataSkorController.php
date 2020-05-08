@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\UserModel;
 use App\SkorModel;
+use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class DataSkorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +14,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home',['nama' => 'Shabrina', 'title' => 'Home']);
+        return view('data_skor');
     }
 
     /**
@@ -24,9 +22,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function about()
+    public function create()
     {
-        return view('about');
+        //
     }
 
     /**
@@ -35,10 +33,34 @@ class HomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function user()
+    public function store(Request $request)
     {
-		$user = UserModel::all();
-        return view('user',['user' => $user, 'title' => 'User']);
+        $skor = new SkorModel;
+		$skor->skor_id = null;
+		$skor->skor_nama = $request->nama;
+		
+		if($request->jurusan==1){
+			$jur = 'Akuntansi';
+		}
+		elseif($request->jabatan==2){
+			$jur = 'Administrasi Niaga';
+		}
+		elseif($request->jabatan==3){
+			$jur = 'Teknik Elektro';
+		}
+		else{
+			$jur = 'Teknik Informatika';
+		}
+		
+		$skor->skor_jurusan = $jur;
+		$skor->skor_kriteria1 = $request->krit1;
+		$skor->skor_kriteria2 = $request->krit2;
+		$skor->skor_kriteria3 = $request->krit3;
+		$skor->skor_kriteria4 = $request->krit4;
+		
+		$skor->save();
+		
+		return redirect('/skor');
     }
 
     /**
@@ -47,10 +69,9 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function dataSkor()
+    public function show($id)
     {
-		$skor = SkorModel::all();
-        return view('skor',['skor' => $skor, 'title' => 'Skor Mahasiswa']);
+        //
     }
 
     /**
