@@ -14,7 +14,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $user = UserModel::all();
+		return view('user', ['user' => $user, 'title' => 'User']);
     }
 
     /**
@@ -36,7 +37,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $user = new UserModel;
-		$user->user_id = null;
+		$user->id = null;
 		$user->user_nama = $request->nama;
 		$user->user_email = $request->email;
 		$user->user_pwd = $request->pwd;
@@ -58,7 +59,7 @@ class UsersController extends Controller
 		
 		$user->save();
 		
-		return redirect('/user');
+		return redirect('/user')->with('status', 'Data berhasil disimpan!');
     }
 
     /**
@@ -101,8 +102,11 @@ class UsersController extends Controller
      * @param  \App\UserModel  $userModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserModel $userModel)
+    public function destroy($us)
     {
-        //
+        $user = UserModel::find($us);
+		$user->delete();
+		
+		return redirect('/user')->with('status', 'Data berhasil dihapus!');
     }
 }

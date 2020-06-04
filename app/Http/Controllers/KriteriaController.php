@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\UserModel;
-use App\SkorModel;
 use App\KriteriaModel;
 
-class HomeController extends Controller
+class KriteriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +14,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home',['nama' => 'Shabrina', 'title' => 'Home']);
+		$kriteria = KriteriaModel::all();
+        return view('kriteria', ['kriteria' => $kriteria, 'title' => 'Kriteria']);
     }
 
     /**
@@ -25,9 +23,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function about()
+    public function create()
     {
-        return view('about');
+        //
     }
 
     /**
@@ -36,10 +34,16 @@ class HomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function user()
+    public function store(Request $request)
     {
-		$user = UserModel::all();
-        return view('user',['user' => $user, 'title' => 'User']);
+        $krit = new KriteriaModel;
+		$krit->id = null;
+		$krit->krit_nama = $request->nama_krit;
+		$krit->krit_bobot = $request->bobot;
+		
+		$krit->save();
+		
+		return redirect('/kriteria')->with('status', 'Data berhasil ditambahkan!');
     }
 
     /**
@@ -48,10 +52,10 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function dataSkor()
+    public function show(KriteriaModel $krit)
     {
-		$skor = SkorModel::all();
-        return view('skor',['skor' => $skor, 'title' => 'Skor Mahasiswa']);
+        
+		return $krit;
     }
 
     /**
@@ -60,10 +64,9 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function kriteria()
+    public function edit(KriteriaModel $krit)
     {
-        $kriteria = KriteriaModel::all();
-        return view('kriteria',['kriteria' => $kriteria, 'title' => 'Kriteria']);
+        return view('upd_kriteria', compact('krit'));
     }
 
     /**
@@ -73,9 +76,15 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $krit)
     {
-        //
+        KriteriaModel::where('id', $krit)
+				-> update([
+				'krit_nama' => $request->nama_krit,
+				'krit_bobot' => $request->bobot
+				]);
+				
+		return redirect('/kriteria')->with('status', 'Data berhasil diubah!');
     }
 
     /**
@@ -84,8 +93,10 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($krit)
     {
-        //
+        $kriteria = KriteriaModel::find($krit);
+		$kriteria->delete();
+		return redirect('/kriteria')->with('status', 'Data berhasil dihapus!');
     }
 }

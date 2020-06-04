@@ -14,7 +14,8 @@ class DataSkorController extends Controller
      */
     public function index()
     {
-        return view('data_skor');
+		$skor = SkorModel::all();
+        return view('data_skor', ['skor' => $sk, 'title' => 'Skor Mahasiswa']);
     }
 
     /**
@@ -36,7 +37,7 @@ class DataSkorController extends Controller
     public function store(Request $request)
     {
         $skor = new SkorModel;
-		$skor->skor_id = null;
+		$skor->id = null;
 		$skor->skor_nama = $request->nama;
 		
 		if($request->jurusan==1){
@@ -60,7 +61,7 @@ class DataSkorController extends Controller
 		
 		$skor->save();
 		
-		return redirect('/skor');
+		return redirect('/skor')->with('status', 'Data berhasil disimpan!');
     }
 
     /**
@@ -105,6 +106,9 @@ class DataSkorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $skor = SkorModel::find($id);
+		$skor->delete();
+		
+		return redirect('/skor')->with('status', 'Data berhasil dihapus!');
     }
 }

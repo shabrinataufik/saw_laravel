@@ -10,6 +10,11 @@
 <div class='container mt-3'>
 <div class='row'>
 <div class='col-3' style='font-size:12'>
+<?php
+if(session('status')){
+echo "<div class='alert alert-success' role='alert'>".session('status')."</div>";
+}
+?>
 <form method='post' action='/users'>
 @csrf
   <div class="form-group">
@@ -53,16 +58,23 @@
     </tr>
   </thead>
   <tbody>
-	<?php foreach($user as $us){
-	echo "<tr>
-      <th scope='row'>".$us->user_id."</th>
-      <td>".$us->user_nama."</td>
-      <td>".$us->user_email."</td>
-      <td>".$us->user_pwd."</td>
-	  <td>".$us->user_jabatan."</td>
-	  <td><a href='' class='badge badge-success'>Edit</a>
-	  <a href='' class='badge badge-danger'>Delete</a></td>
-    </tr>";} ?>
+	@foreach($user as $us)
+	<tr>
+      <th scope='row'><?php echo $us->id; ?></th>
+      <td><?php echo $us->user_nama; ?></td>
+      <td><?php echo $us->user_email; ?>"</td>
+      <td><?php echo $us->user_pwd; ?></td>
+	  <td><?php echo $us->user_jabatan; ?></td>
+	  <td><form action='/user/<?php echo $us->id; ?>' method='fetch' class='d-inline'>
+	  @csrf
+	  <button type='submit' class='btn btn-success btn-sm'>Edit</button>
+	  </form>
+	  <form action='/del_user/<?php echo $us->id; ?>' method='post' class='d-inline'>
+	  @csrf
+	  <button type='submit' class='btn btn-danger btn-sm'>Delete</button>
+	  </form></td>
+    </tr>
+	@endforeach
 	</tbody>
 </div>
 </div>
