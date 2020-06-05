@@ -6,10 +6,10 @@
 
 @section('content')
 <div class="container">
-<h2 class="mt-4" style="color:grey">SISTEM PENDUKUNG KEPUTUSAN PEMILIHAN MAHASISWA BERPRESTASI</h2>
+<h2 class="mt-5" style="color:grey">SISTEM PENDUKUNG KEPUTUSAN PEMILIHAN MAHASISWA BERPRESTASI</h2>
 	<div class="row">
 		<div class="col-8">
-			<a href="/saw" class="btn btn-primary mt-4">Hitung Skor Mahasiswa</a>
+			<a href="/saw" class="btn btn-primary mt-5">Hitung Skor Mahasiswa</a>
 			</br>
 			<table style='font-size:12px' class="table table-striped mt-3">
 			  <thead class="thead-dark">
