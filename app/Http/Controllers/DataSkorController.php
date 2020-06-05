@@ -36,7 +36,15 @@ class DataSkorController extends Controller
      */
     public function store(Request $request)
     {
-        $skor = new SkorModel;
+        $request->validate([
+        'nama' => ['required'],
+		'C1' => ['required'],
+		'C2' => ['required'],
+		'C3' => ['required'],
+		'C4' => ['required']
+		]);
+		
+		$skor = new SkorModel;
 		$skor->id = null;
 		$skor->skor_nama = $request->nama;
 		
@@ -54,10 +62,10 @@ class DataSkorController extends Controller
 		}
 		
 		$skor->skor_jurusan = $jur;
-		$skor->skor_kriteria1 = $request->krit1;
-		$skor->skor_kriteria2 = $request->krit2;
-		$skor->skor_kriteria3 = $request->krit3;
-		$skor->skor_kriteria4 = $request->krit4;
+		$skor->skor_kriteria1 = $request->C1;
+		$skor->skor_kriteria2 = $request->C2;
+		$skor->skor_kriteria3 = $request->C3;
+		$skor->skor_kriteria4 = $request->C4;
 		
 		$skor->save();
 		
@@ -81,9 +89,9 @@ class DataSkorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(SkorModel $skor)
     {
-        //
+       return view('upd_skor', compact('skor'));
     }
 
     /**
@@ -93,9 +101,29 @@ class DataSkorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $skor)
     {
-        //
+        if($request->jurusan==1){
+			$jur = 'Akuntansi';
+		}elseif($request->jurusan==2){
+			$jur = 'Administrasi Niaga';
+		}elseif($request->jurusan==3){
+			$jur = 'Teknik Elektro';
+		}else{
+			$jur = 'Teknik Informatika';
+		}
+				
+        SkorModel::where('id', $skor)
+				-> update([
+				'skor_nama' => $request->nama,
+				'skor_jurusan' => $jur,
+				'skor_kriteria1' => $request->C1,
+				'skor_kriteria2' => $request->C2,
+				'skor_kriteria3' => $request->C3,
+				'skor_kriteria4' => $request->C4
+				]);
+				
+		return redirect('/skor')->with('status', 'Data berhasil diubah!');
     }
 
     /**

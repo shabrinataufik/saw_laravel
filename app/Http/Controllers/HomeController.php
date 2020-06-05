@@ -17,7 +17,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home',['nama' => 'Shabrina', 'title' => 'Home']);
+		$skor = SkorModel::all();
+        return view('home',['nama' => 'Shabrina', 'title' => 'Home', 'skor' => $skor]);
     }
 
     /**

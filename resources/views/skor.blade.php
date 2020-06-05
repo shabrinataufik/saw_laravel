@@ -19,11 +19,12 @@ echo "<div class='alert alert-success' role='alert'>".session('status')."</div>"
 @csrf
   <div class="form-group">
     <label for="exampleInputEmail1">Nama</label>
-    <input class="form-control" name="nama" style='font-size:12'>
+    <input class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{old('nama')}}" style='font-size:12'>
+	@error('nama')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Jurusan</label>
-    <select class="form-control" name="jurusan" style='font-size:12'>
+    <select class="form-control" name="jurusan" value="{{old('jurusan')}}" style='font-size:12'>
       <option value='1'>Akuntansi</option>
       <option value='2'>Administrasi Niaga</option>
       <option value='3'>Teknik Elektro</option>
@@ -32,19 +33,23 @@ echo "<div class='alert alert-success' role='alert'>".session('status')."</div>"
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Kriteria 1 (C1)</label>
-    <input class="form-control" name="krit1" style='font-size:12'>
+    <input class="form-control @error('C1') is-invalid @enderror" name="C1" value="{{old('C1')}}" style='font-size:12'>
+	@error('C1')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Kriteria 2 (C2)</label>
-    <input class="form-control" name="krit2" style='font-size:12'>
+    <input class="form-control @error('C2') is-invalid @enderror" name="C2" value="{{old('C2')}}" style='font-size:12'>
+	@error('C2')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Kriteria 3 (C3)</label>
-    <input class="form-control" name="krit3" style='font-size:12'>
+    <input class="form-control @error('C3') is-invalid @enderror" name="C3" value="{{old('C3')}}" style='font-size:12'>
+	@error('C3')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Kriteria 4 (C4)</label>
-    <input class="form-control" name="krit4" style='font-size:12'>
+    <input class="form-control @error('C4') is-invalid @enderror" name="C4" value="{{old('C4')}}" style='font-size:12'>
+	@error('C4')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
@@ -77,10 +82,8 @@ echo "<div class='alert alert-success' role='alert'>".session('status')."</div>"
 	  <td><?php echo $sk->skor_kriteria2 ?></td>
 	  <td><?php echo $sk->skor_kriteria3 ?></td>
 	  <td><?php echo $sk->skor_kriteria4 ?></td>
-	  <td><form action='/skor/<?php echo $sk->id; ?>' method='fetch' class='d-inline'>
-	  @csrf
-	  <button type='submit' class='btn btn-success btn-sm'>Edit</button>
-	  </form>
+	  <td><a href='/edit_skor/<?php echo $sk->id; ?>' class='btn btn-success btn-sm'>Edit</a>
+	  
 	  <form action='/del_skor/<?php echo $sk->id; ?>' method='post' class='d-inline'>
 	  @csrf
 	  <button type='submit' class='btn btn-danger btn-sm'>Delete</button>
@@ -88,6 +91,7 @@ echo "<div class='alert alert-success' role='alert'>".session('status')."</div>"
     </tr>
 	@endforeach
 	</tbody>
+</table>
 </div>
 </div>
 </div>

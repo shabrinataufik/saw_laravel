@@ -36,7 +36,13 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new UserModel;
+        $validatedData = $request->validate([
+        'nama' => ['required'],
+        'email' => ['required'],
+		'pwd' => ['required']
+		]);
+		
+		$user = new UserModel;
 		$user->id = null;
 		$user->user_nama = $request->nama;
 		$user->user_email = $request->email;
@@ -70,7 +76,7 @@ class UsersController extends Controller
      */
     public function show(UserModel $userModel)
     {
-        //
+        
     }
 
     /**
@@ -79,9 +85,9 @@ class UsersController extends Controller
      * @param  \App\UserModel  $userModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserModel $userModel)
+    public function edit(UserModel $user)
     {
-        //
+        return view('upd_user', compact('user'));
     }
 
     /**
@@ -91,9 +97,27 @@ class UsersController extends Controller
      * @param  \App\UserModel  $userModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserModel $userModel)
+    public function update(Request $request, $user)
     {
-        //
+		if($request->jabatan==1){
+			$jab = 'Admin';
+		}elseif($request->jabatan==2){
+			$jab = 'Kajur';
+		}elseif($request->jabatan==3){
+			$jab = 'Kabag. Kemahasiswaan';
+		}else{
+			$jab = 'Pudir II';
+		}
+				
+        UserModel::where('id', $user)
+				-> update([
+				'user_nama' => $request->nama,
+				'user_email' => $request->email,
+				'user_pwd' => $request->pwd,
+				'user_jabatan' => $jab
+				]);
+				
+		return redirect('/user')->with('status', 'Data berhasil diubah!');
     }
 
     /**

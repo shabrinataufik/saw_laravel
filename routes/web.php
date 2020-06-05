@@ -28,3 +28,7 @@ Route::post('/del_user/{us}', 'UsersController@destroy');
 Route::post('/del_skor/{sk}', 'DataSkorController@destroy');
 Route::get('/edit_kriteria/{krit}', 'KriteriaController@edit');
 Route::post('/upd_kriteria/{krit}', 'KriteriaController@update');
+Route::get('/edit_user/{user}', 'UsersController@edit');
+Route::post('/upd_user/{user}', 'UsersController@update');
+Route::get('/edit_skor/{skor}', 'DataSkorController@edit');
+Route::post('/upd_skor/{skor}', 'DataSkorController@update');

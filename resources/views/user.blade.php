@@ -19,15 +19,24 @@ echo "<div class='alert alert-success' role='alert'>".session('status')."</div>"
 @csrf
   <div class="form-group">
     <label for="exampleInputEmail1">Nama</label>
-    <input class="form-control" name="nama" style='font-size:12'>
+    <input class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{old('nama')}}" style='font-size:12'>
+  @error('nama')
+    <div class="invalid-feedback">{{$message}}</div>
+  @enderror
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Email</label>
-    <input type='email' class="form-control" name="email" style='font-size:12'>
+    <input type='email' class="form-control @error('email') is-invalid @enderror" name="email" value="{{old('email')}}" style='font-size:12'>
+  @error('email')
+    <div class="invalid-feedback">{{$message}}</div>
+  @enderror
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Password</label>
-    <input class="form-control" name="pwd" style='font-size:12'>
+    <input class="form-control @error('pwd') is-invalid @enderror" name="pwd" value="{{old('pwd')}}" style='font-size:12'>
+  @error('pwd')
+    <div class="invalid-feedback">{{$message}}</div>
+  @enderror
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Jabatan</label>
@@ -37,7 +46,7 @@ echo "<div class='alert alert-success' role='alert'>".session('status')."</div>"
       <option value='3'>Kabag. Kemahasiswaan</option>
       <option value='4'>Pudir II</option>
     </select>
-  </div>
+  </div> 
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 </div>
@@ -65,17 +74,15 @@ echo "<div class='alert alert-success' role='alert'>".session('status')."</div>"
       <td><?php echo $us->user_email; ?>"</td>
       <td><?php echo $us->user_pwd; ?></td>
 	  <td><?php echo $us->user_jabatan; ?></td>
-	  <td><form action='/user/<?php echo $us->id; ?>' method='fetch' class='d-inline'>
-	  @csrf
-	  <button type='submit' class='btn btn-success btn-sm'>Edit</button>
-	  </form>
-	  <form action='/del_user/<?php echo $us->id; ?>' method='post' class='d-inline'>
+	  <td><a href='/edit_user/{{$us->id}}' class='btn btn-success btn-sm'>Edit</a>
+	  <form action='/del_user/{{$us->id}}' method='post' class='d-inline'>
 	  @csrf
 	  <button type='submit' class='btn btn-danger btn-sm'>Delete</button>
 	  </form></td>
     </tr>
 	@endforeach
 	</tbody>
+</table>
 </div>
 </div>
 </div>

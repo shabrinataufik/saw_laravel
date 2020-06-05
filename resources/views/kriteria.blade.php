@@ -19,11 +19,13 @@ echo "<div class='alert alert-success' role='alert'>".session('status')."</div>"
 @csrf
   <div class="form-group">
     <label for="exampleInputEmail1">Kriteria</label>
-    <input class="form-control" name="nama_krit" style='font-size:12'>
+    <input class="form-control @error('nama_krit') is-invalid @enderror" name="nama_krit" value="{{old('nama_krit')}}" style='font-size:12'>
+	@error('nama_krit')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Bobot Kriteria</label>
-    <input class="form-control" name="bobot" style='font-size:12'>
+    <input class="form-control @error('bobot') is-invalid @enderror" name="bobot" value="{{old('bobot')}}" style='font-size:12'>
+	@error('bobot')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

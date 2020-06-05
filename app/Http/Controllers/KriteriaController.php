@@ -36,6 +36,11 @@ class KriteriaController extends Controller
      */
     public function store(Request $request)
     {
+		$validatedData = $request->validate([
+        'nama_krit' => ['required'],
+        'bobot' => ['required']
+		]);
+		
         $krit = new KriteriaModel;
 		$krit->id = null;
 		$krit->krit_nama = $request->nama_krit;

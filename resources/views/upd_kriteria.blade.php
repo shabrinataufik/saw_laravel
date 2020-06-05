@@ -2,10 +2,10 @@
 
 @extends('layout.main')
 
-@section('title', 'UPDATE KRITERIA')
+@section('title', 'Update Kriteria')
 
 @section('content')
-<h2 class='mt-5' style='color:grey'>KRITERIA SPK</h2>
+<h2 class='mt-5' style='color:grey'>UPDATE DATA KRITERIA SPK</h2>
 </br>
 <div class='container mt-3'>
 <div class='row'>
