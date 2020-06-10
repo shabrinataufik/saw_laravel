@@ -32,3 +32,4 @@ Route::get('/edit_user/{user}', 'UsersController@edit');
 Route::post('/upd_user/{user}', 'UsersController@update');
 Route::get('/edit_skor/{skor}', 'DataSkorController@edit');
 Route::post('/upd_skor/{skor}', 'DataSkorController@update');
+Route::get('/saw', 'SPKController@get_saw');

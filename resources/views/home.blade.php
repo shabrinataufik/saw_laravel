@@ -10,6 +10,7 @@
 	<div class="row">
 		<div class="col-8">
 			<a href="/saw" class="btn btn-primary mt-5">Hitung Skor Mahasiswa</a>
+	
 			</br>
 			<table style='font-size:12px' class="table table-striped mt-3">
 			  <thead class="thead-dark">
@@ -41,6 +42,25 @@
 			<a href="/skor" class="btn btn-success">Ubah Data >></a>
 		</div>
 		<div class="col-3">
+			@if(null!==@$saw)
+			<div class="card mt-4 ml-5" style="width: 18rem;">
+			  <div class="card-body">
+				<h5 class="card-title">Skor Mahasiswa</h5>
+				<?php 
+					for($i=0; $i<$rows; $i++){
+				?>
+					<p class="card-text">
+					<?php	
+						echo $saw[$i][0]." : ".$saw[$i][1];
+					?>
+					</p>
+				<?php } ?>
+					<p class="card-text">
+						Mahasiswa yang terpilih sebagai Mahasiswa Berprestasi Universitas Angkasa adalah <b>{{$result}}</b>.
+					</p>
+			  </div>
+			</div>
+			@endif
 			<div class="card mt-4 ml-5" style="width: 18rem;">
 			  <div class="card-body">
 				<p class="card-text">Ini adalah aplikasi Sistem Pendukung Keputusan (SPK) Pemilihan Mahasiswa Berprestasi di Universitas Angkasa. Klik "HItung Skor Mahasiswa" untuk menghitung skor mahasiswa dan memilih mahasiswa terbaik. Klik "Ubah Data" menambah, mengubah, atau menghapus data skor mahasiswa.</p>
