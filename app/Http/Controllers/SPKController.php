@@ -76,7 +76,7 @@ class SPKController extends Controller
 		
 		foreach($skor as $sk){
 			$v_saw[$j][0]= $nama[$j];
-			$v_saw[$j][1]=($sk->skor_kriteria1*$bobot[0])*($sk->skor_kriteria2*$bobot[1])*($sk->skor_kriteria3*$bobot[2])*($sk->skor_kriteria4*$bobot[3]);
+			$v_saw[$j][1]=($sk->skor_kriteria1*$bobot[0])+($sk->skor_kriteria2*$bobot[1])+($sk->skor_kriteria3*$bobot[2])+($sk->skor_kriteria4*$bobot[3]);
 			$v[$j]=$v_saw[$j][1];
 			$j=$j+1;
 		}
